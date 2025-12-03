@@ -5,7 +5,7 @@ The Final Project for programming digital arts. This is a self created project t
 # Starboard Strike
 
 ## Repository
-[<Link to your project's public GitHub respository>](https://github.com/LycorisM/Final-Project)
+[<Link to your project's public GitHub respository>](https://github.com/LycorisM/Final_Project)
 
 ## Description
 For my final project, I will create a visual/text based point-and-click exploration game called The Maze Path. In this game, the player navigates through a maze-like environment using only three movement commands: Left, Right, and Forward. 
