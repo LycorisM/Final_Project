@@ -1,26 +1,38 @@
-import pygame  # Import the Pygame library
-import sys    # Import the sys module for exiting the program
+import pygame
+from pygame.locals import *
 
-pygame.init()  # Initialize all the Pygame modules
+# Initialize Pygame
+pygame.init()
 
-width = 1000   # Define the width of the game screen
-height = 800   # Define the height of the game screen
-size = (width, height)  # Create a tuple representing the screen size
+screen_width = 600
+screen_height = 800
+screen = pygame.display.set_mode((screen_width, screen_height))
+pygame.display.set_caption('Starboard Strike')
 
-screen = pygame.display.set_mode(size)  # Create the game window with the specified size
-clock = pygame.time.Clock()  # Create a Clock object to control the frame rate
+# Load the background image for the game
+image_path = 'images/background1.png' 
+try:
+    bg_original = pygame.image.load(image_path).convert()
+    
+    # Scale the image to fit the screen dimensions
+    bg = pygame.transform.scale(bg_original, (screen_width, screen_height))
 
-run = 1  # Initialize a flag to control the game loop
+except pygame.error as e:
+    print(f"Error loading or scaling background image: {e}")
 
-while run:  # The main game loop
-    screen.fill((0, 0, 0))  # Fill the screen with yellow color (RGB: 255, 255, 0)
+    # Fallback: create a red surface if image fails
+    bg = pygame.Surface((screen_width, screen_height))
+    bg.fill((255, 0, 0)) 
 
-    for event in pygame.event.get():  # Iterate through all pending events
-        if event.type == pygame.QUIT:  # If the user clicks the close button
-            run = 0  # Set the 'run' flag to 0 to exit the loop
+run = True
+while run:
+    # Event handling
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            run = False
 
-    pygame.display.flip()  # Update the full display Surface to the screen
-    clock.tick(60)  # Limit the frame rate to 60 frames per second
+    screen.blit(bg, (0, 0))
 
-pygame.quit()  # Uninitialize all Pygame modules
-sys.exit()     # Exit the Python program
+    pygame.display.update() 
+
+pygame.quit()
