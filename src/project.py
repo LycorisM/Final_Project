@@ -58,7 +58,10 @@ class Spaceship(pygame.sprite.Sprite):
 
         # Draw the Health bar for the Player
         pygame.draw.rect(screen, red, (self.rect.x, (self.rect.bottom + 10), self.rect.width, 15))
-
+        if self.health_remaining > 0:
+            pygame.draw.rect(screen, green, (self.rect.x, (self.rect.bottom + 10), int(self.rect.width * (self.health_remaining / self.health_start)), 15))
+        
+            
 
 #Create png groups for easier readability/organization
 spaceship_group = pygame.sprite.Group()
