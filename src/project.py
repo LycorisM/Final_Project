@@ -56,16 +56,34 @@ class Spaceship(pygame.sprite.Sprite):
         if key[pygame.K_RIGHT] and self.rect.right < screen_width:
             self.rect.x += speed
 
+
+        # Shoot the bullets
+        if key[pygame.K_SPACE]:
+            bullet = Bullets(self.rect.centerx, self.rect.top)
+            bullet_group.add(bullet)
+
+
         # Draw the Health bar for the Player
         pygame.draw.rect(screen, red, (self.rect.x, (self.rect.bottom + 10), self.rect.width, 15))
         if self.health_remaining > 0:
             pygame.draw.rect(screen, green, (self.rect.x, (self.rect.bottom + 10), int(self.rect.width * (self.health_remaining / self.health_start)), 15))
         
-            
 
-#Create png groups for easier readability/organization
+# Create Bullets Class
+class Bullets(pygame.sprite.Sprite):
+    def __init__(self, x, y):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.image.load("images/bullet.png")
+        self.rect = self.image.get_rect()
+        self.rect.center = [x, y]
+
+    def update(self):
+        self.rect.y -= 5
+
+
+# Create png groups for easier readability/organization
 spaceship_group = pygame.sprite.Group()
-
+bullet_group = pygame.sprite.Group()
 
 
 # Player Location/Starting Point
@@ -88,8 +106,14 @@ while run:
     # Update the player
     player.update()
 
+
+    # Update sprite players
+    bullet_group.update()
+
+
     # Draw the pngs on the screen
     spaceship_group.draw(screen)
+    bullet_group.draw(screen)
 
     pygame.display.update() 
 
