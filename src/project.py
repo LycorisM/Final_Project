@@ -13,6 +13,12 @@ screen_height = 800
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption('Starboard Strike')
 
+
+# Define the colours for the game
+red = (255, 0, 0)
+green = (0, 255, 0)
+
+
 # Load the background image for the game
 image_path = 'images/background1.png' 
 try:
@@ -30,11 +36,28 @@ except pygame.error as e:
 
 # Creating the player class aka Spaceship
 class Spaceship(pygame.sprite.Sprite):
-    def __init__(self, x, y):
+    def __init__(self, x, y, health):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.image.load("images/player.png")
         self.rect = self.image.get_rect()
         self.rect.center = [x, y]
+        self.health_start = health
+        self.health_remaining = health
+
+
+    def update(self):
+        # Creating the set movement speed
+        speed = 8
+
+        # Movement keys, WASD to move player
+        key = pygame.key.get_pressed ()
+        if key[pygame.K_LEFT] and self.rect.left > 0:
+            self.rect.x -= speed
+        if key[pygame.K_RIGHT] and self.rect.right < screen_width:
+            self.rect.x += speed
+
+        # Draw the Health bar for the Player
+        pygame.draw.rect(screen, red, (self.rect.x, (self.rect.bottom + 10), self.rect.width, 15))
 
 
 #Create png groups for easier readability/organization
@@ -43,7 +66,7 @@ spaceship_group = pygame.sprite.Group()
 
 
 # Player Location/Starting Point
-player = Spaceship(int(screen_width / 2), screen_height - 100)
+player = Spaceship(int(screen_width / 2), screen_height - 100, 3)
 spaceship_group.add(player)
 
 run = True
@@ -57,6 +80,10 @@ while run:
             run = False
 
     screen.blit(bg, (0, 0))
+
+
+    # Update the player
+    player.update()
 
     # Draw the pngs on the screen
     spaceship_group.draw(screen)
