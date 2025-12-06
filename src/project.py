@@ -6,6 +6,7 @@ pygame.init()
 
 #Setting the FPS for the game
 clock = pygame.time.Clock()
+fps = 60
 
 screen_width = 600
 screen_height = 800
@@ -27,14 +28,38 @@ except pygame.error as e:
     bg = pygame.Surface((screen_width, screen_height))
     bg.fill((255, 0, 0)) 
 
+# Creating the player class aka Spaceship
+class Spaceship(pygame.sprite.Sprite):
+    def __init__(self, x, y):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.image.load("images/player.png")
+        self.rect = self.image.get_rect()
+        self.rect.center = [x, y]
+
+
+#Create png groups for easier readability/organization
+spaceship_group = pygame.sprite.Group()
+
+
+
+# Player Location/Starting Point
+player = Spaceship(int(screen_width / 2), screen_height - 100)
+spaceship_group.add(player)
+
 run = True
 while run:
+
+    clock.tick(fps)
+
     # Event handling
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
 
     screen.blit(bg, (0, 0))
+
+    # Draw the pngs on the screen
+    spaceship_group.draw(screen)
 
     pygame.display.update() 
 
