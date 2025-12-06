@@ -4,6 +4,9 @@ from pygame.locals import *
 # Initialize Pygame
 pygame.init()
 
+#Setting the FPS for the game
+clock = pygame.time.Clock()
+
 screen_width = 600
 screen_height = 800
 screen = pygame.display.set_mode((screen_width, screen_height))
