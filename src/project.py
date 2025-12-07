@@ -173,6 +173,9 @@ while run:
     bullet_group.update()
 
 
+    # Update aliens 
+    alien_group.update()
+
 
     # Draw the pngs on the screen
     spaceship_group.draw(screen)
