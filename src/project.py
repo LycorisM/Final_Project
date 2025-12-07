@@ -116,8 +116,6 @@ class Aliens(pygame.sprite.Sprite):
         
         # Get the rectangle of the *newly scaled* image
         self.rect = self.image.get_rect()
-        
-        # Set the center of the rectangle to the provided (x, y) coordinates
         self.rect.center = [x, y]
 
 
