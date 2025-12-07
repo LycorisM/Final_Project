@@ -1,4 +1,5 @@
 import pygame
+import random
 from pygame.locals import *
 
 # Initialize Pygame
@@ -13,6 +14,10 @@ screen_height = 800
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption('Starboard Strike')
 
+
+# Define game variables
+rows = 5
+cols = 5
 
 # Define the colours for the game
 red = (255, 0, 0)
@@ -90,9 +95,48 @@ class Bullets(pygame.sprite.Sprite):
             self.kill()
 
 
+# Create the Aliens Class (Enemy)
+class Aliens(pygame.sprite.Sprite):
+    def __init__(self, x, y, scale_factor=2.5):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.image.load("images/alien" + str(random.randint(1,5)) + ".png")
+        self.rect = self.image.get_rect()
+        self.rect.center = [x, y]
+
+# Rescale the alien sprite images
+        original_image = pygame.image.load("images/alien" + str(random.randint(1,5)) + ".png").convert_alpha()
+        
+        # Get the original size
+        original_width, original_height = original_image.get_size()
+        
+        # Calculate new dimensions
+        new_width = int(original_width * scale_factor)
+        new_height = int(original_height * scale_factor)
+        self.image = pygame.transform.scale(original_image, (new_width, new_height))
+        
+        # Get the rectangle of the *newly scaled* image
+        self.rect = self.image.get_rect()
+        
+        # Set the center of the rectangle to the provided (x, y) coordinates
+        self.rect.center = [x, y]
+
+
 # Create png groups for easier readability/organization
 spaceship_group = pygame.sprite.Group()
 bullet_group = pygame.sprite.Group()
+alien_group = pygame.sprite.Group()
+
+
+# Create the Aliens
+def create_aliens():
+
+    # Generate the enemy aliens
+    for row in range(rows):
+        for item in range(cols):
+            alien = Aliens(100 + item * 100, 100 + row * 70)
+            alien_group.add(alien)
+
+create_aliens()
 
 
 # Player Location/Starting Point
@@ -123,6 +167,7 @@ while run:
     # Draw the pngs on the screen
     spaceship_group.draw(screen)
     bullet_group.draw(screen)
+    alien_group.draw(screen)
 
     pygame.display.update() 
 
