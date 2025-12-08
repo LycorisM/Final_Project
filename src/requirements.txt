@@ -1,2 +1,4 @@
-# pygame
-# random
+pygame
+random
+pygame.locals import *
+mixer

@@ -1,9 +1,15 @@
 import pygame
 import random
+from pygame import mixer
 from pygame.locals import *
+
+
+pygame.mixer.pre_init(44100, -16, 2, 512)
+mixer.init()
 
 # Initialize Pygame
 pygame.init()
+pygame.font.init()
 
 #Setting the FPS for the game
 clock = pygame.time.Clock()
@@ -14,6 +20,18 @@ screen_height = 800
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption('Starboard Strike')
 
+gamemusic_fx = pygame.mixer.Sound("sounds/gamemusic.mp3")
+gamemusic_fx.set_volume(0.35)
+
+
+explosion_fx = pygame.mixer.Sound("sounds/explosion.mp3")
+explosion_fx.set_volume(0.25)
+
+laser_fx = pygame.mixer.Sound("sounds/laser.wav")
+laser_fx.set_volume(0.25)
+
+playerdeath_fx = pygame.mixer.Sound("sounds/player_death.mp3")
+playerdeath_fx.set_volume(0.25)
 
 # Define game variables
 rows = 5
@@ -21,6 +39,8 @@ cols = 5
 alien_cooldown = 1000 # Bullet cooldown in milliseconds
 last_alien_shot = pygame.time.get_ticks()
 
+# 0 = Game Over, 1 = Player Win, -1 = Player Lose
+game_over = 0
 
 
 # Define the colours for the game
@@ -61,6 +81,7 @@ class Spaceship(pygame.sprite.Sprite):
 
         # Set cooldown for bullet time
         cooldown = 500
+        game_over = 0
 
 
         # Movement keys, WASD to move player
@@ -75,6 +96,7 @@ class Spaceship(pygame.sprite.Sprite):
 
         # Shoot the bullets
         if key[pygame.K_SPACE] and time_now - self.last_shot > cooldown:
+            laser_fx.play()
             bullet = Bullets(self.rect.centerx, self.rect.top)
             bullet_group.add(bullet)
             self.last_shot = time_now
@@ -90,6 +112,13 @@ class Spaceship(pygame.sprite.Sprite):
         elif self.health_remaining <= 0:
             explosion = Explosion(self.rect.centerx, self.rect.centery, "large")
             explosion_group.add(explosion)
+            self.kill()
+            game_over = -1
+        return game_over
+
+
+# Play the music
+gamemusic_fx.play()
 
 # Create Bullets Class
 class Bullets(pygame.sprite.Sprite):
@@ -105,6 +134,7 @@ class Bullets(pygame.sprite.Sprite):
             self.kill()
         if pygame.sprite.spritecollide(self, alien_group, True):
             self.kill()
+            explosion_fx.play()
             explosion = Explosion(self.rect.centerx, self.rect.centery)
             explosion_group.add(explosion)
 
@@ -158,6 +188,7 @@ class Alien_Bullets(pygame.sprite.Sprite):
             self.kill()
         if pygame.sprite.spritecollide(self, spaceship_group, False, pygame.sprite.collide_mask):
             self.kill()
+            explosion_fx.play()
             
             #reduce ship health
             player.health_remaining -= 1
@@ -256,17 +287,20 @@ while run:
         alien_bullet_group.add(alien_bullet)
         last_alien_shot = time_now
 
+    # All Aliens are killed
+    if len(alien_group) == 0:
+        game_over = 1
+
+    if game_over == 0:
+        # Update the player
+        game_over = player.update()
 
 
-    # Update the player
-    player.update()
-
-
-    # Update sprite groups
-    bullet_group.update()
-    alien_group.update()
-    alien_bullet_group.update()
-    explosion_group.update()
+        # Update sprite groups
+        bullet_group.update()
+        alien_group.update()
+        alien_bullet_group.update()
+        explosion_group.update()
 
 
     # Draw the pngs on the screen
@@ -278,4 +312,5 @@ while run:
 
     pygame.display.update() 
 
+pygame.mixer.music.stop()
 pygame.quit()
