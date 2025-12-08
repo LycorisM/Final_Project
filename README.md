@@ -1,4 +1,4 @@
-# PROJECT TITLE
+# Starboard Strike
 
 ## Demo
 Demo Video: <URL>
