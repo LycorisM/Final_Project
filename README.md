@@ -4,6 +4,6 @@
 Demo Video: <URL>
 
 ## GitHub Repository
-GitHub Repo: [<URL>](https://github.com/LycorisM/Final_Project)
+GitHub Repo: https://github.com/LycorisM/Final_Project
 
 ## Description
