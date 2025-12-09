@@ -8,12 +8,17 @@ GitHub Repo: https://github.com/LycorisM/Final_Project
 
 ## Description
 
+
+Files
+
+
+Areas of Improvement
 The areas of improvement I want to make for the project is a proper game menu and game over sequence. I had big plans for a boss at the end of the game's level but I was unable to complete the boss as intended due to time constraints.
 
 # Credits for my work
-Tutorial Followed
 
-# Series for Space Invaders
+# Tutorial Followed
+Series for Space Invaders
 https://www.youtube.com/watch?v=QvtlEj_T55o&list=PLlEgNdBJEO-lqvqL5nNNZC6KoRdSrhQwK
 
 # Sprites
