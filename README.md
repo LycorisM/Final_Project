@@ -7,17 +7,27 @@ Demo Video: <URL>
 GitHub Repo: https://github.com/LycorisM/Final_Project
 
 ## Description
+I've followed a tutorial to create my own type of space invaders video game! The game includes aliens
 
-
-Files and Folders
+# Files & Folders
 .gitignore folder
  - Contains the original propsoal md file
 
 Images Folder 
-
+- Space background, generated and customized by me
+- bullet png
+- explosion png, manually cut and renamed
+- alien pngs
+- game over png
+- alien bullet png
+- player png
+- SpaceBackground Generator program
 
 Sounds Folders
-
+- Explosion mp3
+- Game Music mp3
+- laser mp3
+- player death mp3
 
 SRC 
 - Contains the project.py relies here
