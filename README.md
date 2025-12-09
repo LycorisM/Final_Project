@@ -2,7 +2,7 @@
 
 ## Demo
 Demo Video: 
-
+https://youtu.be/f46TnMQEdEw
 
 ## GitHub Repository
 GitHub Repo: https://github.com/LycorisM/Final_Project
@@ -54,6 +54,10 @@ The areas of improvement I want to make for the project is a proper game menu an
 Tutorial Followed
 Series for Space Invaders
 https://www.youtube.com/watch?v=QvtlEj_T55o&list=PLlEgNdBJEO-lqvqL5nNNZC6KoRdSrhQwK
+
+Other Tutorials
+https://www.youtube.com/watch?v=M6e3_8LHc7A
+https://www.youtube.com/watch?v=nXOVcOBqFwM
 
 # Sprites
 https://cuxrie.itch.io/spaceship-shooter-pixel-art-space-pack
